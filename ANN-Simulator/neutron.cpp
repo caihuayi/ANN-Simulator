@@ -67,6 +67,11 @@ bool Neutron::get_debug() const
     return is_debug;
 }
 
+const QPoint& Neutron::get_old_point() const
+{
+    return old_position;
+}
+
 void Neutron::draw(shared_ptr<QPainter> active_painter,
                    shared_ptr<QPainter> debug_painter,
                    shared_ptr<QPainter> normal_painter) const

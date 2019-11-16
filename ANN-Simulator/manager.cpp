@@ -19,6 +19,7 @@ Manager::~Manager()
 
 void Manager::init_painter()
 {
+    /*
     QPen active_pen(Qt::red);
     QBrush active_brush(Qt::red, Qt::BrushStyle::TexturePattern);
     active_painter.reset(new QPainter());
@@ -36,6 +37,7 @@ void Manager::init_painter()
     normal_painter.reset(new QPainter());
     normal_painter->setPen(normal_pen);
     normal_painter->setBrush(normal_brush);
+    */
 }
 
 int Manager::size() const
@@ -43,7 +45,9 @@ int Manager::size() const
     return layer_list.size();
 }
 
-void Manager::draw() const
+void Manager::draw(std::shared_ptr<QPainter> active_painter,
+                   std::shared_ptr<QPainter> debug_painter,
+                   std::shared_ptr<QPainter> normal_painter) const
 {
     for (auto &iter : layer_list)
     {
@@ -57,5 +61,6 @@ void Manager::create(int n)
     for (int i = 0; i < n; i++)
     {
         layer_list.append(shared_ptr<Layer>(new Layer(point.x(), point.y(), n, height_gap, neutron_weight, neutron_height)));
+        point.setX(point.x()+weight_gap);
     }
 }

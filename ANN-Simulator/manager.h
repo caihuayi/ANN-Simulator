@@ -27,7 +27,9 @@ public:
     Manager(int x, int y, int neutron_height, int neutron_weight, int weight_gap, int height_gap);
     ~Manager();
     int size() const;
-    void draw() const;
+    void draw(std::shared_ptr<QPainter> active_painter,
+              std::shared_ptr<QPainter> debug_painter,
+              std::shared_ptr<QPainter> normal_painter) const;
     void create(int n);
 };
 

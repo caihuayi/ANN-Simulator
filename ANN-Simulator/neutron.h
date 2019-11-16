@@ -31,6 +31,7 @@ public:
     bool get_active() const;
     void set_debug(bool de);
     bool get_debug() const;
+    const QPoint& get_old_point() const;
     virtual void draw(std::shared_ptr<QPainter> active_painter,
               std::shared_ptr<QPainter> debug_painter,
               std::shared_ptr<QPainter> normal_painter) const;
