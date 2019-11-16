@@ -1,4 +1,5 @@
 #include "neutron.h"
+#include <iostream>
 using namespace std;
 Neutron::Neutron()
 {
@@ -7,6 +8,7 @@ Neutron::Neutron()
 
 Neutron::Neutron(const QPoint &p, int w, int h):
     position(p), weight(w), height(h)
+  , is_active(false), is_debug(false)
 {
     renew_point();
 }
@@ -72,19 +74,22 @@ const QPoint& Neutron::get_old_point() const
     return old_position;
 }
 
-void Neutron::draw(shared_ptr<QPainter> active_painter,
-                   shared_ptr<QPainter> debug_painter,
-                   shared_ptr<QPainter> normal_painter) const
+void Neutron::draw(std::shared_ptr<QPainter> painter,
+                   std::shared_ptr<QBrush> active_brush,
+                   std::shared_ptr<QBrush> debug_brush,
+                   std::shared_ptr<QBrush> normal_brush) const
 {
-    shared_ptr<QPainter> painter = normal_painter;
+    shared_ptr<QBrush> brush = normal_brush;
     if (is_active == true)
     {
-        painter = active_painter;
+        brush = active_brush;
+        cout << "draw" << endl;
     }
     if (is_debug == true)
     {
-        painter = debug_painter;
+        brush = debug_brush;
     }
+    painter->setBrush(*brush);
     painter->drawRect(position.x(), position.y(), weight, height);
 }
 
@@ -99,6 +104,12 @@ void Neutron::OnPress(double x, double y)
     if (is_in(x, y))
     {
         is_active = true;
+        cout << "is_active == true" << endl;
+    }
+    else
+    {
+        is_active = false;
+        cout << "is_active == false" << endl;
     }
 }
 

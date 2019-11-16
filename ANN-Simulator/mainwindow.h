@@ -23,13 +23,15 @@ private:
     Ui::MainWindow *ui;
 
     //test single neutron
-    std::shared_ptr<QPainter> test_painter;
-    std::shared_ptr<Neutron> n;
+    //std::shared_ptr<QPainter> test_painter;
+    //std::shared_ptr<Neutron> n;
     //test end
 
     //test all
     std::shared_ptr<Manager> manager;
     //test end
+
+    void init_painter(std::shared_ptr<QPainter>, std::shared_ptr<QPainter>, std::shared_ptr<QPainter>);
     void paintEvent(QPaintEvent*);
     void mousePressEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);

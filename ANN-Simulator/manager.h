@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <memory>
 class Layer;
+class Neutron;
 class Manager
 {
 private:
@@ -19,18 +20,27 @@ private:
     int weight_gap;
     int height_gap;
 
-    void init_painter();
-    void draw_layer() const;
-    void draw_line() const;
+    void draw_layer(std::shared_ptr<QPainter> painter,
+                    std::shared_ptr<QBrush> active_brush,
+                    std::shared_ptr<QBrush> debug_brush,
+                    std::shared_ptr<QBrush> normal_brush) const;
+    void draw_line(std::shared_ptr<QPainter> painter, std::shared_ptr<QPen> line_pen) const;
 public:
     Manager();
     Manager(int x, int y, int neutron_height, int neutron_weight, int weight_gap, int height_gap);
     ~Manager();
     int size() const;
-    void draw(std::shared_ptr<QPainter> active_painter,
-              std::shared_ptr<QPainter> debug_painter,
-              std::shared_ptr<QPainter> normal_painter) const;
+    void draw(std::shared_ptr<QPainter> painter,
+              std::shared_ptr<QBrush> active_brush,
+              std::shared_ptr<QBrush> debug_brush,
+              std::shared_ptr<QBrush> normal_brush,
+              std::shared_ptr<QPen> line_pen) const;
     void create(int n);
+    void OnPress(double x, double y);
+    void OnRelease(double x, double y);
+    void OnMove(double cx, double cy);
+    std::shared_ptr<Neutron> search_active();
+    void update_fbpoint();
 };
 
 #endif // MANAGER_H

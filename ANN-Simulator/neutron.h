@@ -32,9 +32,10 @@ public:
     void set_debug(bool de);
     bool get_debug() const;
     const QPoint& get_old_point() const;
-    virtual void draw(std::shared_ptr<QPainter> active_painter,
-              std::shared_ptr<QPainter> debug_painter,
-              std::shared_ptr<QPainter> normal_painter) const;
+    virtual void draw(std::shared_ptr<QPainter> painter,
+                      std::shared_ptr<QBrush> active_brush,
+                      std::shared_ptr<QBrush> debug_brush,
+                      std::shared_ptr<QBrush> normal_brush) const;
 
     void OnPress(double x, double y);
     void OnMove(double cx, double cy);
