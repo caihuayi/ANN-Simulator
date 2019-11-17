@@ -1,13 +1,13 @@
 #include "neutron.h"
-#include <iostream>
+
 using namespace std;
 Neutron::Neutron()
 {
 
 }
 
-Neutron::Neutron(const QPoint &p, int w, int h):
-    position(p), weight(w), height(h)
+Neutron::Neutron(const QPoint &p, int w, int h, int llc):
+    position(p), weight(w), height(h), weight_vector(llc, 0)
   , is_active(false), is_debug(false)
 {
     renew_point();
@@ -83,7 +83,6 @@ void Neutron::draw(std::shared_ptr<QPainter> painter,
     if (is_active == true)
     {
         brush = active_brush;
-        cout << "draw" << endl;
     }
     if (is_debug == true)
     {
@@ -104,12 +103,10 @@ void Neutron::OnPress(double x, double y)
     if (is_in(x, y))
     {
         is_active = true;
-        cout << "is_active == true" << endl;
     }
     else
     {
         is_active = false;
-        cout << "is_active == false" << endl;
     }
 }
 

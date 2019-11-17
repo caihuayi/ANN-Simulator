@@ -4,10 +4,12 @@
 #include <QVector>
 #include <QPainter>
 #include <memory>
+#include "inputneutron.h"
+#include "hideneutron.h"
 class Neutron;
 class Layer
 {
-private:
+protected:
     QList<std::shared_ptr<Neutron>> neutron_list;
     QVector<double> input_vector;
     QVector<double> output_vector;
@@ -17,12 +19,14 @@ private:
     int height_gap;
     int neutron_weight;
     int neutron_height;
+    int last_layer_count;
 
-    void create(int n);
+    virtual void create(int n) = 0;
     void renew_output();
 public:
     Layer();
-    Layer(int x, int y, int n, int gap, int weight, int height);
+    Layer(int x, int y, int n, int gap, int weight, int height, int last_layer_count);
+    virtual ~Layer() = default;
     int size() const;
     void set_input(const Layer& layer);
     const QVector<double>& get_output() const;
@@ -39,6 +43,7 @@ public:
     const QList<QPoint>& get_fplist() const;
     const QList<QPoint>& get_bplist() const;
     void update_fbpoint();
+    void random_para();
 };
 
 #endif // LAYER_H

@@ -1,30 +1,31 @@
 #include "layer.h"
 #include "neutron.h"
+#include <iostream>
 using namespace std;
 Layer::Layer()
 {
 
 }
 
-Layer::Layer(int x, int y, int n, int g, int weight, int height) :
-    height_gap(g), neutron_weight(weight), neutron_height(height)
+Layer::Layer(int x, int y, int n, int g, int weight, int height, int llc) :
+    height_gap(g), neutron_weight(weight), neutron_height(height), last_layer_count(llc)
 {
     first_pos.setX(x);
     first_pos.setY(y);
-    create(n);
 }
-
+/*
 void Layer::create(int n)
 {
     QPoint point = first_pos;
+    neutron_list.clear();
     for (int i = 0; i < n; i++)
     {
-        neutron_list.append(shared_ptr<Neutron>(new Neutron(point, neutron_weight, neutron_height)));
+        neutron_list.append(shared_ptr<Neutron>(new HideNeutron(point, neutron_weight, neutron_height, last_layer_count, 0, 0)));
         point.setY(point.y()+height_gap);
     }
     update_fbpoint();
     output_vector.fill(0, n);
-}
+}*/
 
 void Layer::renew_output()
 {
@@ -139,4 +140,10 @@ const QList<QPoint>& Layer::get_bplist() const
     return bpoint_list;
 }
 
-
+void Layer::random_para()
+{
+    for (auto& iter : neutron_list)
+    {
+        iter->random_para();
+    }
+}

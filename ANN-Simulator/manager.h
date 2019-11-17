@@ -4,6 +4,8 @@
 #include <QPainter>
 #include <memory>
 #include <QVector>
+#include "inputlayer.h"
+#include "hidelayer.h"
 class Layer;
 class Neutron;
 class Manager
@@ -45,6 +47,7 @@ public:
     std::shared_ptr<Neutron> search_active();
     void update_fbpoint();
     void set_network(int layer_count, QVector<int> neutron_count);
+    void random_para();
 };
 
 #endif // MANAGER_H

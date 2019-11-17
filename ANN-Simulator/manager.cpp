@@ -1,7 +1,6 @@
 #include "manager.h"
 #include "layer.h"
 #include "neutron.h"
-#include <iostream>
 using namespace std;
 Manager::Manager()
 {
@@ -24,27 +23,22 @@ int Manager::size() const
 
 void Manager::draw_line(std::shared_ptr<QPainter> painter, std::shared_ptr<QPen> line_pen) const
 {
-    //painter->setPen(*line_pen);
     QList<std::shared_ptr<Layer>>::const_iterator iter = layer_list.begin();
     iter++;
     for (; iter != layer_list.end(); iter++)
     {
-        cout << "first for " << endl;
         QList<std::shared_ptr<Layer>>::const_iterator fiter = --iter;
         iter++;
         QList<QPoint> start = (*fiter)->get_bplist();
         QList<QPoint> end = (*iter)->get_fplist();
         for (auto& iter1 : start)
         {
-            cout << "second for " << endl;
             for (auto& iter2 : end)
             {
                 painter->drawLine(iter1, iter2);
-                cout << "drawLine" << endl;
             }
         }
     }
-    //painter->setPen()
 }
 
 void Manager::draw_layer(std::shared_ptr<QPainter> painter,
@@ -71,9 +65,12 @@ void Manager::draw(std::shared_ptr<QPainter> painter,
 void Manager::create()
 {
     QPoint point = first_pos;
-    for (int i = 0; i < layer_count; i++)
+    layer_list.clear();
+    layer_list.append(shared_ptr<Layer>(new InputLayer(point.x(), point.y(), neutron_count[0], height_gap, neutron_weight, neutron_height)));
+    point.setX(point.x()+weight_gap);
+    for (int i = 1; i < layer_count; i++)
     {
-        layer_list.append(shared_ptr<Layer>(new Layer(point.x(), point.y(), neutron_count[i], height_gap, neutron_weight, neutron_height)));
+        layer_list.append(shared_ptr<Layer>(new HideLayer(point.x(), point.y(), neutron_count[i], height_gap, neutron_weight, neutron_height, neutron_count[i-1])));
         point.setX(point.x()+weight_gap);
     }
 }
@@ -127,4 +124,12 @@ void Manager::set_network(int lc, QVector<int> nc)
 {
     layer_count = lc;
     neutron_count = nc;
+}
+
+void Manager::random_para()
+{
+    for (auto& iter : layer_list)
+    {
+        iter->random_para();
+    }
 }

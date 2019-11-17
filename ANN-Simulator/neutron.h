@@ -9,6 +9,7 @@ protected:
     QPoint old_position;
     QPoint fpoint;
     QPoint bpoint;
+    QVector<double> weight_vector;
     int weight;
     int height;
     double input;
@@ -20,7 +21,7 @@ private:
     void renew_point();
 public:
     Neutron();
-    Neutron(const QPoint &position, int weight, int height);
+    Neutron(const QPoint &position, int weight, int height, int last_layer_count);
     virtual ~Neutron();
     const QPoint& get_fpoint() const;
     const QPoint& get_bpoint() const;
@@ -36,10 +37,11 @@ public:
                       std::shared_ptr<QBrush> active_brush,
                       std::shared_ptr<QBrush> debug_brush,
                       std::shared_ptr<QBrush> normal_brush) const;
-
+    virtual void random_para() = 0;
     void OnPress(double x, double y);
     void OnMove(double cx, double cy);
     void OnRelease(double x, double y);
+    virtual QVector<double> get_weight_vector() const = 0;
 };
 
 #endif // NEUTRON_H

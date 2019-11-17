@@ -16,7 +16,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    dialogsetnetwork.cpp \
+    activationfunction.cpp \
+    computefunction.cpp \
+    hidelayer.cpp \
+    hideneutron.cpp \
+    inputlayer.cpp \
+    inputneutron.cpp \
     layer.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -24,14 +29,18 @@ SOURCES += \
     neutron.cpp
 
 HEADERS += \
-    dialogsetnetwork.h \
+    activationfunction.h \
+    computefunction.h \
+    hidelayer.h \
+    hideneutron.h \
+    inputlayer.h \
+    inputneutron.h \
     layer.h \
     mainwindow.h \
     manager.h \
     neutron.h
 
 FORMS += \
-    dialogsetnetwork.ui \
     mainwindow.ui
 
 # Default rules for deployment.
