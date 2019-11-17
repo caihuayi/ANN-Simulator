@@ -7,6 +7,7 @@ class Neutron
 protected:
     QPoint position;
     QPoint old_position;
+    QPoint mid_position;
     QPoint fpoint;
     QPoint bpoint;
     QVector<double> weight_vector;
@@ -18,6 +19,7 @@ protected:
     bool is_debug;
 private:
     inline bool is_in(double x, double y);
+    void compute_mid_point();
     void renew_point();
 public:
     Neutron();

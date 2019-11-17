@@ -1,5 +1,4 @@
 #include "hideneutron.h"
-#include <iostream>
 using namespace std;
 HideNeutron::HideNeutron()
 {
@@ -26,7 +25,6 @@ void HideNeutron::random_para()
         weight_vector.append(n);
 
     }
-    cout << "hidden layer" << endl;
 }
 
 QVector<double> HideNeutron::get_weight_vector() const

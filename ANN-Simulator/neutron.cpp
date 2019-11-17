@@ -11,6 +11,7 @@ Neutron::Neutron(const QPoint &p, int w, int h, int llc):
   , is_active(false), is_debug(false)
 {
     renew_point();
+    compute_mid_point();
 }
 
 Neutron::~Neutron()
@@ -90,6 +91,7 @@ void Neutron::draw(std::shared_ptr<QPainter> painter,
     }
     painter->setBrush(*brush);
     painter->drawRect(position.x(), position.y(), weight, height);
+    painter->drawText(mid_position, QString::number(get_output()));
 }
 
 inline bool Neutron::is_in(double x, double y)
@@ -117,6 +119,7 @@ void Neutron::OnMove(double cx, double cy)
         position.setX(position.x()+cx);
         position.setY(position.y()+cy);
         renew_point();
+        compute_mid_point();
     }
 }
 
@@ -124,4 +127,10 @@ void Neutron::OnRelease(double x, double y)
 {
     old_position.setX(x);
     old_position.setY(y);
+}
+
+void Neutron::compute_mid_point()
+{
+    mid_position.setX(position.x()+weight/4);
+    mid_position.setY(position.y()+height/2);
 }

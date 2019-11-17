@@ -1,6 +1,5 @@
 #include "layer.h"
 #include "neutron.h"
-#include <iostream>
 using namespace std;
 Layer::Layer()
 {

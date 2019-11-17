@@ -3,7 +3,6 @@
 #include "neutron.h"
 #include "manager.h"
 #include <QVector>
-#include <iostream>
 
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)
@@ -128,6 +127,7 @@ void MainWindow::on_button_draw_clicked()
 void MainWindow::on_button_random_clicked()
 {
     manager->random_para();
+    this->update();
 }
 
 void MainWindow::update_weight()
