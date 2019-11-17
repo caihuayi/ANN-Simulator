@@ -68,12 +68,12 @@ void Manager::draw(std::shared_ptr<QPainter> painter,
     draw_line(painter, line_pen);
 }
 
-void Manager::create(int n)
+void Manager::create()
 {
     QPoint point = first_pos;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < layer_count; i++)
     {
-        layer_list.append(shared_ptr<Layer>(new Layer(point.x(), point.y(), n, height_gap, neutron_weight, neutron_height)));
+        layer_list.append(shared_ptr<Layer>(new Layer(point.x(), point.y(), neutron_count[i], height_gap, neutron_weight, neutron_height)));
         point.setX(point.x()+weight_gap);
     }
 }
@@ -121,4 +121,10 @@ void Manager::update_fbpoint()
     {
         iter->update_fbpoint();
     }
+}
+
+void Manager::set_network(int lc, QVector<int> nc)
+{
+    layer_count = lc;
+    neutron_count = nc;
 }

@@ -2,13 +2,14 @@
 #include "ui_mainwindow.h"
 #include "neutron.h"
 #include "manager.h"
-
+#include <QVector>
 #include <iostream>
+
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , manager(new Manager(20, 20, 50, 50, 100, 100))
+    , manager(new Manager(20, 200, 50, 50, 100, 100))
 {
     /********test single neutron***********/
    /* QPen pen(Qt::red);
@@ -18,8 +19,12 @@ MainWindow::MainWindow(QWidget *parent)
     test_painter->setBrush(brush);
     QPoint point(20, 20);
     n.reset(new Neutron(point, 100, 100));*/
+    /*******test dialog*************/
+    //dialog_set_network.setModal(true);
+    //dialog_set_network.show();
      /*******test all***************/
-    manager->create(5);
+    QVector<int> neutron_count = {0};
+    update_network(neutron_count);
      /****************************/
     ui->setupUi(this);
 }
@@ -117,4 +122,38 @@ void MainWindow::mouseMoveEvent(QMouseEvent* me)
 void MainWindow::mouseReleaseEvent(QMouseEvent* me)
 {
 
+}
+
+void MainWindow::update_network(QVector<int> network)
+{
+    manager->set_network(network.size(), network);
+    manager->create();
+}
+
+void MainWindow::on_layer_count_edit_textChanged(const QString &arg1)
+{
+    int count = arg1.toInt();
+    if (line_edit_vector.size() != 0)
+    {
+        line_edit_vector.clear();
+    }
+    for (int i = 0; i < count; i++)
+    {
+       line_edit_vector.append(shared_ptr<QLineEdit>(new QLineEdit(this)));
+    }
+    for (auto& iter : line_edit_vector)
+    {
+        ui->network_layout->addWidget(iter.get());
+    }
+}
+
+void MainWindow::on_button_draw_clicked()
+{
+    QVector<int> neutron_network;
+    for (auto& iter : line_edit_vector)
+    {
+        neutron_network.append(iter->text().toInt());
+    }
+    update_network(neutron_network);
+    this->update();
 }

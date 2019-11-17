@@ -3,6 +3,7 @@
 #include <QList>
 #include <QPainter>
 #include <memory>
+#include <QVector>
 class Layer;
 class Neutron;
 class Manager
@@ -19,6 +20,8 @@ private:
     int neutron_weight;
     int weight_gap;
     int height_gap;
+    QVector<int> neutron_count;
+    int layer_count;
 
     void draw_layer(std::shared_ptr<QPainter> painter,
                     std::shared_ptr<QBrush> active_brush,
@@ -35,12 +38,13 @@ public:
               std::shared_ptr<QBrush> debug_brush,
               std::shared_ptr<QBrush> normal_brush,
               std::shared_ptr<QPen> line_pen) const;
-    void create(int n);
+    void create();
     void OnPress(double x, double y);
     void OnRelease(double x, double y);
     void OnMove(double cx, double cy);
     std::shared_ptr<Neutron> search_active();
     void update_fbpoint();
+    void set_network(int layer_count, QVector<int> neutron_count);
 };
 
 #endif // MANAGER_H
