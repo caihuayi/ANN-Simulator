@@ -223,3 +223,9 @@ void MainWindow::on_button_compute_all_clicked()
     manager->compute_all();
     this->update();
 }
+
+void MainWindow::on_button_debug_clicked()
+{
+    manager->debug_next();
+    this->update();
+}

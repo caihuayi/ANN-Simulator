@@ -1,6 +1,7 @@
 #include "manager.h"
 #include "layer.h"
 #include "neutron.h"
+#include <iostream>
 using namespace std;
 Manager::Manager()
 {
@@ -10,6 +11,8 @@ Manager::Manager(int x, int y, int nh, int nw, int wg, int hg):
     first_pos(x, y), neutron_height(nh), neutron_weight(nw),
     weight_gap(wg), height_gap(hg)
 {
+    debug_neutron = nullptr;
+    debug_layer = nullptr;
 }
 
 Manager::~Manager()
@@ -165,4 +168,65 @@ void Manager::set_input()
 {
     shared_ptr<Layer> l = layer_list.front();
     l->renew_output();
+}
+
+bool Manager::debug_have_next()
+{
+    cout << "Manager 4" << endl;
+    QList<shared_ptr<Layer>>::const_iterator iter = qFind(layer_list, debug_layer);
+    cout << "Manager 5" << endl;
+    if (iter == layer_list.end())
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+bool Manager::debug_next()
+{
+    QList<shared_ptr<Layer>>::iterator iter2 = layer_list.begin();
+    if (debug_layer == nullptr)
+    {
+        QList<shared_ptr<Layer>>::iterator iter1 = layer_list.begin();
+
+        debug_layer = *++iter1;
+    }
+    cout << "Manager 1" << endl;
+    if (debug_have_next() == true)
+    {
+        QList<shared_ptr<Layer>>::const_iterator layer_iter = qFind(layer_list, debug_layer);
+        if (debug_layer->debug_next(*iter2) == false)
+        {
+            ++layer_iter;
+            if (layer_iter == layer_list.end())
+            {
+                return false;
+            }
+            cout << "Manager 2" << endl;
+        }
+        ++iter2;
+        debug_layer = *layer_iter;
+        return true;
+    }
+    else
+    {
+        cout << "Manager 3" << endl;
+        debug_layer = nullptr;
+        return false;
+    }
+}
+
+shared_ptr<Layer> Manager::get_debug_layer()
+{
+    /*for (auto& iter : layer_list)
+    {
+        if (iter->get_debug())
+        {
+            return iter;
+        }
+    }
+    return nullptr;*/
 }

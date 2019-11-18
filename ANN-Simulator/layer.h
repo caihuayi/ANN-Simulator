@@ -4,9 +4,11 @@
 #include <QVector>
 #include <QPainter>
 #include <memory>
+#include <QtAlgorithms>
 #include "inputneutron.h"
 #include "hideneutron.h"
 #include "activationfunction.h"
+
 class Neutron;
 class Layer
 {
@@ -21,8 +23,10 @@ protected:
     int neutron_weight;
     int neutron_height;
     int last_layer_count;
-
+    //std::shared_ptr<Neutron> debug_neutron;
     virtual void create(int n) = 0;
+    bool is_debugging;
+    std::shared_ptr<Neutron> debug_neuron;
 
 public:
     Layer();
@@ -50,6 +54,11 @@ public:
     void update_activation(std::shared_ptr<ActivationFunction> activation_function);
     void layer_compute();
     void renew_output();
+    void layer_debug();
+    bool get_debugging() const;
+    std::shared_ptr<Neutron> get_debug_neutron();
+    bool debug_have_next();
+    bool debug_next(std::shared_ptr<Layer> layer);
 };
 
 #endif // LAYER_H

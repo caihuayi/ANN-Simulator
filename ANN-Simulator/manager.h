@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <memory>
 #include <QVector>
+#include <QtAlgorithms>
 #include "inputlayer.h"
 #include "hidelayer.h"
 #include "activationfunction.h"
@@ -30,6 +31,8 @@ private:
     int height_gap;
     QVector<int> neutron_count;
     int layer_count;
+    std::shared_ptr<Neutron> debug_neutron;
+    std::shared_ptr<Layer> debug_layer;
 
     void draw_layer(std::shared_ptr<QPainter> painter,
                     std::shared_ptr<QBrush> active_brush,
@@ -58,6 +61,9 @@ public:
     void update_layer_activation(std::shared_ptr<Layer> layer, std::shared_ptr<ActivationFunction> activation_function);
     void compute_all();
     void set_input();
+    bool debug_next();
+    bool debug_have_next();
+    std::shared_ptr<Layer> get_debug_layer();
 };
 
 #endif // MANAGER_H

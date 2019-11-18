@@ -1,5 +1,6 @@
 #include "layer.h"
 #include "neutron.h"
+#include <iostream>
 using namespace std;
 Layer::Layer()
 {
@@ -11,6 +12,7 @@ Layer::Layer(int x, int y, int n, int g, int weight, int height, int llc) :
 {
     first_pos.setX(x);
     first_pos.setY(y);
+    debug_neuron = nullptr;
 }
 /*
 void Layer::create(int n)
@@ -172,14 +174,92 @@ void Layer::layer_compute()
     }
 }
 
-/*
-QVector<double> Layer::get_output()
+void Layer::layer_debug()
 {
-    QVector<double> out;
-    for (auto& iter : neutron_list)
+    shared_ptr<Neutron> neu = get_debug_neutron();
+    if (neu == nullptr)
     {
-        out.append(iter->get_output());
+        neu = neutron_list.front();
+        neu->set_debug(true);
+        neu->compute(input_vector);
     }
+    else if (neu == neutron_list.back())
+    {
+        neu->set_debug(false);
+    }
+    else
+    {
+        neu->set_debug(false);
+        QList<shared_ptr<Neutron>>::const_iterator iter = qFind(neutron_list, neu);
+        iter++;
+        (*iter)->set_debug(true);
+        (*iter)->compute(input_vector);
+    }
+}
 
-    return out;
-}*/
+shared_ptr<Neutron> Layer::get_debug_neutron()
+{
+    return debug_neuron;
+}
+
+bool Layer::get_debugging() const
+{
+    return is_debugging;
+}
+
+bool Layer::debug_have_next()
+{
+    cout << "layer 4" << endl;
+    QList<shared_ptr<Neutron>>::const_iterator iter = qFind(neutron_list, debug_neuron);
+    cout << "layer 5" << endl;
+    if (++iter == neutron_list.end())
+    {
+        is_debugging = false;
+        return false;
+    }
+    else
+    {
+        is_debugging = true;
+        return true;
+    }
+}
+
+bool Layer::debug_next(shared_ptr<Layer> layer)
+{
+    if (debug_neuron == nullptr)
+    {
+        QList<shared_ptr<Neutron>>::const_iterator iter = neutron_list.begin();
+        debug_neuron = *iter;
+        debug_neuron->set_debug(true);
+        set_input(layer->get_output());
+        debug_neuron->compute(input_vector);
+        return true;
+    }
+    cout << "layer 1" << endl;
+    if (debug_have_next() == true)
+    {
+        QList<shared_ptr<Neutron>>::const_iterator iter = qFind(neutron_list, debug_neuron);
+        (*iter)->set_debug(false);
+        ++iter;
+        for (int i = 0; i < 4; i++)
+        {
+            cout << layer->get_output()[i] << endl;
+        }
+        set_input(layer->get_output());
+        for (int i = 0; i < 4; i++)
+        {
+            cout << input_vector[i] << endl;
+        }
+        output_vector.append((*iter)->compute(input_vector));
+        (*iter)->set_debug(true);
+        debug_neuron = *iter;
+        cout << "layer 2" << endl;
+        return true;
+    }
+    else
+    {
+        cout << "layer 3" << endl;
+        debug_neuron = nullptr;
+        return false;
+    }
+}
