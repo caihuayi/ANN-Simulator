@@ -169,7 +169,7 @@ void Manager::set_input()
     shared_ptr<Layer> l = layer_list.front();
     l->renew_output();
 }
-
+/*
 bool Manager::debug_have_next()
 {
     cout << "Manager 4" << endl;
@@ -194,6 +194,7 @@ bool Manager::debug_next()
 
         debug_layer = *++iter1;
     }
+    (*iter2)->renew_output();
     cout << "Manager 1" << endl;
     if (debug_have_next() == true)
     {
@@ -201,13 +202,16 @@ bool Manager::debug_next()
         if (debug_layer->debug_next(*iter2) == false)
         {
             ++layer_iter;
+            (*layer_iter)->clear_output();
             if (layer_iter == layer_list.end())
             {
                 return false;
             }
-            cout << "Manager 2" << endl;
+
+            ++iter2;
         }
-        ++iter2;
+        cout << "Manager 2" << endl;
+
         debug_layer = *layer_iter;
         return true;
     }
@@ -217,6 +221,44 @@ bool Manager::debug_next()
         debug_layer = nullptr;
         return false;
     }
+}*/
+
+bool Manager::debug_have_next()
+{
+
+}
+
+bool Manager::debug_next()
+{
+    QList<shared_ptr<Layer>>::const_iterator iter1;
+    QList<shared_ptr<Layer>>::const_iterator iter2;
+    if (this->debug_layer == nullptr)
+    {
+        iter1 = layer_list.begin();
+        iter2 = iter1;
+        debug_layer = *++iter1;
+    }
+    else
+    {
+        iter1 = qFind(layer_list, debug_layer);
+        iter2 = --iter1;
+        ++iter1;
+    }
+    if ((*iter1)->debug_next(*iter2) == false)
+    {
+        (*iter1)->renew_output();
+        if (++iter1 == layer_list.end())
+        {
+            return false;
+        }
+        else
+        {
+            ++iter2;
+        }
+    }
+    debug_layer = *iter1;
+
+    return true;
 }
 
 shared_ptr<Layer> Manager::get_debug_layer()

@@ -59,6 +59,7 @@ public:
     std::shared_ptr<Neutron> get_debug_neutron();
     bool debug_have_next();
     bool debug_next(std::shared_ptr<Layer> layer);
+    void clear_output();
 };
 
 #endif // LAYER_H
