@@ -1,4 +1,5 @@
 #include "hideneutron.h"
+#include <iostream>
 using namespace std;
 HideNeutron::HideNeutron()
 {
@@ -76,4 +77,17 @@ Neutron::NeutronType HideNeutron::get_type() const
 shared_ptr<ActivationFunction> HideNeutron::get_activation() const
 {
     return activation_function;
+}
+
+double HideNeutron::compute(QVector<double> x)
+{
+    double result = 0;
+    for (int i = 0; i < weight_vector.size(); i++)
+    {
+        result += x[i]*weight_vector[i];
+        cout << "x[i]=" << x[i] << " weight[i]=" << weight_vector[i] << endl;
+    }
+    output = activation_function->compute(result);
+    cout << output << endl;
+    return output;
 }

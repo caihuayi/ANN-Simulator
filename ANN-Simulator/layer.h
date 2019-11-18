@@ -23,13 +23,14 @@ protected:
     int last_layer_count;
 
     virtual void create(int n) = 0;
-    void renew_output();
+
 public:
     Layer();
     Layer(int x, int y, int n, int gap, int weight, int height, int last_layer_count);
     virtual ~Layer() = default;
     int size() const;
-    void set_input(const Layer& layer);
+    void set_input(QVector<double> input);
+    //QVector<double> get_output()
     const QVector<double>& get_output() const;
     void draw(std::shared_ptr<QPainter> painter,
               std::shared_ptr<QBrush> active_brush,
@@ -47,6 +48,8 @@ public:
     void random_para();
     void update_para(QVector<double> para);
     void update_activation(std::shared_ptr<ActivationFunction> activation_function);
+    void layer_compute();
+    void renew_output();
 };
 
 #endif // LAYER_H

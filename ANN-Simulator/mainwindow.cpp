@@ -128,6 +128,7 @@ void MainWindow::on_button_draw_clicked()
 void MainWindow::on_button_random_clicked()
 {
     manager->random_para();
+    manager->set_input();
     this->update();
 }
 
@@ -161,6 +162,7 @@ void MainWindow::on_button_update_clicked()
         para.append(iter->text().toDouble());
     }
     neu->update_para(para);
+    manager->set_input();
     int n = button_group.checkedId();
     if (n == -1)
     {
@@ -214,4 +216,10 @@ void MainWindow::create_btn_group()
     button_group.addButton(activation_radio_button_map.find(ActivationFunction::ReLU)->get(), ActivationFunction::ReLU);
     button_group.addButton(activation_radio_button_map.find(ActivationFunction::Sigmoid)->get(), ActivationFunction::Sigmoid);
     button_group.addButton(activation_radio_button_map.find(ActivationFunction::Tanh)->get(), ActivationFunction::Tanh);
+}
+
+void MainWindow::on_button_compute_all_clicked()
+{
+    manager->compute_all();
+    this->update();
 }

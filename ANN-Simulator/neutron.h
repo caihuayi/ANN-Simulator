@@ -15,7 +15,7 @@ protected:
     QVector<double> weight_vector;
     int weight;
     int height;
-    double input;
+    QVector<double> input;
     double output;
     bool is_active;
     bool is_debug;
@@ -31,8 +31,8 @@ public:
     virtual ~Neutron();
     const QPoint& get_fpoint() const;
     const QPoint& get_bpoint() const;
-    void set_input(double input);
-    double get_input() const;
+    void set_input(QVector<double> input);
+    QVector<double> get_input() const;
     double get_output() const;
     void set_active(bool act);
     bool get_active() const;
@@ -52,6 +52,7 @@ public:
     virtual void update_activation(std::shared_ptr<ActivationFunction> activation_function) = 0;
     virtual NeutronType get_type() const = 0;
     virtual std::shared_ptr<ActivationFunction> get_activation() const = 0;
+    virtual double compute(QVector<double> x) = 0;
 };
 
 #endif // NEUTRON_H

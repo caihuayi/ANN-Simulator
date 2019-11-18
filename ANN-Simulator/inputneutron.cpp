@@ -56,3 +56,8 @@ shared_ptr<ActivationFunction> InputNeutron::get_activation() const
 {
     return activation_function;
 }
+
+double InputNeutron::compute(QVector<double> x)
+{
+    return output;
+}

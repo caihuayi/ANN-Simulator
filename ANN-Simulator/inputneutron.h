@@ -21,7 +21,7 @@ public:
     void update_activation(std::shared_ptr<ActivationFunction> activation_function) override;
     NeutronType get_type() const override;
     std::shared_ptr<ActivationFunction> get_activation() const override;
-
+    double compute(QVector<double> x) override;
 };
 
 #endif // INPUTNEUTRON_H

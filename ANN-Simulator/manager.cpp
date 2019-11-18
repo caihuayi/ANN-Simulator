@@ -149,3 +149,20 @@ void Manager::update_layer_activation(std::shared_ptr<Layer> l, std::shared_ptr<
 {
     l->update_activation(af);
 }
+
+void Manager::compute_all()
+{
+    QList<shared_ptr<Layer>>::iterator iter1 = layer_list.begin();
+    QList<shared_ptr<Layer>>::iterator iter2 = iter1++;
+    for (; iter1 != layer_list.end(); iter1++)
+    {
+        (*iter1)->set_input((*iter2++)->get_output());
+        (*iter1)->layer_compute();
+    }
+}
+
+void Manager::set_input()
+{
+    shared_ptr<Layer> l = layer_list.front();
+    l->renew_output();
+}

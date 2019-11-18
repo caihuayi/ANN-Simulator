@@ -56,6 +56,8 @@ public:
     void random_para();
     void update_para(QVector<double> para);
     void update_layer_activation(std::shared_ptr<Layer> layer, std::shared_ptr<ActivationFunction> activation_function);
+    void compute_all();
+    void set_input();
 };
 
 #endif // MANAGER_H

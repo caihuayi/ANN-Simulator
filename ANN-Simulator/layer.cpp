@@ -51,9 +51,9 @@ int Layer::size() const
     return neutron_list.size();
 }
 
-void Layer::set_input(const Layer &layer)
+void Layer::set_input(QVector<double> in)
 {
-    input_vector = layer.get_output();
+    input_vector = in;
 }
 
 const QVector<double>& Layer::get_output() const
@@ -162,3 +162,24 @@ void Layer::update_activation(std::shared_ptr<ActivationFunction> af)
         iter->update_activation(af);
     }
 }
+
+void Layer::layer_compute()
+{
+    output_vector.clear();
+    for (auto& iter : neutron_list)
+    {
+        output_vector.append(iter->compute(input_vector));
+    }
+}
+
+/*
+QVector<double> Layer::get_output()
+{
+    QVector<double> out;
+    for (auto& iter : neutron_list)
+    {
+        out.append(iter->get_output());
+    }
+
+    return out;
+}*/

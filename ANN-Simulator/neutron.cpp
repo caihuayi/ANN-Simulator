@@ -35,12 +35,12 @@ const QPoint& Neutron::get_bpoint() const
     return bpoint;
 }
 
-void Neutron::set_input(double in)
+void Neutron::set_input(QVector<double> in)
 {
     input = in;
 }
 
-double Neutron::get_input() const
+QVector<double> Neutron::get_input() const
 {
     return input;
 }
