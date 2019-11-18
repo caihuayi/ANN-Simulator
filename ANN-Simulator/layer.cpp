@@ -146,3 +146,19 @@ void Layer::random_para()
         iter->random_para();
     }
 }
+
+void Layer::update_para(QVector<double> para)
+{
+    for (auto& iter : neutron_list)
+    {
+        iter->update_para(para);
+    }
+}
+
+void Layer::update_activation(std::shared_ptr<ActivationFunction> af)
+{
+    for (auto& iter : neutron_list)
+    {
+        iter->update_activation(af);
+    }
+}

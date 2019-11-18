@@ -9,6 +9,7 @@ InputNeutron::InputNeutron(const QPoint &p, int w, int h, double _z) :
     Neutron(p, w, h, 0), z(_z)
 {
     output = z;
+    activation_function = nullptr;
 }
 
 void InputNeutron::random_para()
@@ -37,4 +38,21 @@ QVector<double> InputNeutron::get_weight_vector() const
     return n;
 }
 
+void InputNeutron::update_para(QVector<double> para)
+{
+    z = para[0];
+    output = para[0];
+}
 
+void InputNeutron::update_activation(shared_ptr<ActivationFunction>)
+{}
+
+Neutron::NeutronType InputNeutron::get_type() const
+{
+    return type;
+}
+
+shared_ptr<ActivationFunction> InputNeutron::get_activation() const
+{
+    return activation_function;
+}

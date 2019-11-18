@@ -27,3 +27,11 @@ void HideLayer::create(int n)
     update_fbpoint();
     output_vector.fill(0, n);
 }
+
+void HideLayer::update_activation(shared_ptr<ActivationFunction> af)
+{
+    for (auto& iter : neutron_list)
+    {
+        iter->update_activation(af);
+    }
+}

@@ -3,7 +3,7 @@
 #include "neutron.h"
 #include "manager.h"
 #include <QVector>
-
+#include <iostream>
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -71,6 +71,7 @@ void MainWindow::mousePressEvent(QMouseEvent* me)
     manager->OnPress(me->x(), me->y());
     manager->OnRelease(me->x(), me->y());
     update_weight();
+    update_activation();
     this->update();
 }
 
@@ -149,4 +150,68 @@ void MainWindow::update_weight()
     {
         ui->para_layout->addWidget(weight_line_edit_vector[i].get());
     }
+}
+
+void MainWindow::on_button_update_clicked()
+{
+    shared_ptr<Neutron> neu(manager->search_active());
+    QVector<double> para;
+    for (auto& iter : weight_line_edit_vector)
+    {
+        para.append(iter->text().toDouble());
+    }
+    neu->update_para(para);
+    int n = button_group.checkedId();
+    if (n == -1)
+    {
+
+    }
+    else if (n == ActivationFunction::ReLU)
+    {
+        neu->update_activation(shared_ptr<ActivationFunction>(new ActivationReLu));
+    }
+    else if (n == ActivationFunction::Sigmoid)
+    {
+        neu->update_activation(shared_ptr<ActivationFunction>(new ActivationSigmoid));
+    }
+    else if (n == ActivationFunction::Tanh)
+    {
+        neu->update_activation(shared_ptr<ActivationFunction>(new ActivationTanh));
+    }
+    else
+    {
+        throw "fault in activation selecting";
+    }
+    this->update();
+}
+
+void MainWindow::update_activation()
+{
+    shared_ptr<Neutron> neu(manager->search_active());
+    if (neu == nullptr) return;
+    if (neu->get_type() == Neutron::Input) return;
+    shared_ptr<ActivationFunction> af = neu->get_activation();
+    activation_radio_button_map.clear();
+    activation_radio_button_map.insert(ActivationFunction::ReLU, shared_ptr<QRadioButton>(new QRadioButton("ReLU", this)));
+    activation_radio_button_map.insert(ActivationFunction::Sigmoid, shared_ptr<QRadioButton>(new QRadioButton("Sigmoid", this)));
+    activation_radio_button_map.insert(ActivationFunction::Tanh, shared_ptr<QRadioButton>(new QRadioButton("Tanh", this)));
+    if (af)
+    {
+        activation_radio_button_map.find(af->get_type()).value()->setChecked(true);
+    }
+    ui->activation_layout->addWidget((*activation_radio_button_map.find(ActivationFunction::ReLU)).get());
+    ui->activation_layout->addWidget((*activation_radio_button_map.find(ActivationFunction::Sigmoid)).get());
+    ui->activation_layout->addWidget((*activation_radio_button_map.find(ActivationFunction::Tanh)).get());
+    create_btn_group();
+}
+
+void MainWindow::create_btn_group()
+{
+    button_group.removeButton(activation_radio_button_map.find(ActivationFunction::ReLU)->get());
+    button_group.removeButton(activation_radio_button_map.find(ActivationFunction::Sigmoid)->get());
+    button_group.removeButton(activation_radio_button_map.find(ActivationFunction::Tanh)->get());
+
+    button_group.addButton(activation_radio_button_map.find(ActivationFunction::ReLU)->get(), ActivationFunction::ReLU);
+    button_group.addButton(activation_radio_button_map.find(ActivationFunction::Sigmoid)->get(), ActivationFunction::Sigmoid);
+    button_group.addButton(activation_radio_button_map.find(ActivationFunction::Tanh)->get(), ActivationFunction::Tanh);
 }

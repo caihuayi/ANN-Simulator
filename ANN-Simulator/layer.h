@@ -6,6 +6,7 @@
 #include <memory>
 #include "inputneutron.h"
 #include "hideneutron.h"
+#include "activationfunction.h"
 class Neutron;
 class Layer
 {
@@ -44,6 +45,8 @@ public:
     const QList<QPoint>& get_bplist() const;
     void update_fbpoint();
     void random_para();
+    void update_para(QVector<double> para);
+    void update_activation(std::shared_ptr<ActivationFunction> activation_function);
 };
 
 #endif // LAYER_H

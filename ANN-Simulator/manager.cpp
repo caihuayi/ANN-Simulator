@@ -70,7 +70,10 @@ void Manager::create()
     point.setX(point.x()+weight_gap);
     for (int i = 1; i < layer_count; i++)
     {
-        layer_list.append(shared_ptr<Layer>(new HideLayer(point.x(), point.y(), neutron_count[i], height_gap, neutron_weight, neutron_height, neutron_count[i-1])));
+        shared_ptr<Layer> temp(new HideLayer(point.x(), point.y(), neutron_count[i], height_gap, neutron_weight, neutron_height, neutron_count[i-1]));
+        shared_ptr<ActivationFunction> af(new ActivationReLu());
+        temp->update_activation(af);
+        layer_list.append(temp);
         point.setX(point.x()+weight_gap);
     }
 }
@@ -132,4 +135,17 @@ void Manager::random_para()
     {
         iter->random_para();
     }
+}
+
+void Manager::update_para(QVector<double> para)
+{
+    for (auto& iter : layer_list)
+    {
+        iter->update_para(para);
+    }
+}
+
+void Manager::update_layer_activation(std::shared_ptr<Layer> l, std::shared_ptr<ActivationFunction> af)
+{
+    l->update_activation(af);
 }

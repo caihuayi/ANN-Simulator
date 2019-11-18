@@ -7,6 +7,10 @@
 #include <memory>
 #include <QLineEdit>
 #include <QVector>
+#include <QRadioButton>
+#include <QMap>
+#include <QButtonGroup>
+#include "activationfunction.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,6 +32,8 @@ private slots:
 
     void on_button_random_clicked();
 
+    void on_button_update_clicked();
+
 private:
     Ui::MainWindow *ui;
     //test all
@@ -35,6 +41,8 @@ private:
     //test end
     QVector<std::shared_ptr<QLineEdit>> network_line_edit_vector;
     QVector<std::shared_ptr<QLineEdit>> weight_line_edit_vector;
+    QMap<ActivationFunction::ActivationType, std::shared_ptr<QRadioButton>> activation_radio_button_map;
+    QButtonGroup button_group;
 
     void init_painter(std::shared_ptr<QPainter>, std::shared_ptr<QPainter>, std::shared_ptr<QPainter>);
     void paintEvent(QPaintEvent*);
@@ -42,5 +50,7 @@ private:
     void mouseMoveEvent(QMouseEvent*);
     void update_network(QVector<int> network);
     void update_weight();
+    void update_activation();
+    void create_btn_group();
 };
 #endif // MAINWINDOW_H

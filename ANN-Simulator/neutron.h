@@ -2,6 +2,8 @@
 #define NEUTRON_H
 #include <QPainter>
 #include <memory>
+#include <activationfunction.h>
+class ActivationFunction;
 class Neutron
 {
 protected:
@@ -17,11 +19,13 @@ protected:
     double output;
     bool is_active;
     bool is_debug;
+    std::shared_ptr<ActivationFunction> activation_function;
 private:
     inline bool is_in(double x, double y);
     void compute_mid_point();
     void renew_point();
 public:
+    typedef enum{Input, Hide} NeutronType;
     Neutron();
     Neutron(const QPoint &position, int weight, int height, int last_layer_count);
     virtual ~Neutron();
@@ -44,6 +48,10 @@ public:
     void OnMove(double cx, double cy);
     void OnRelease(double x, double y);
     virtual QVector<double> get_weight_vector() const = 0;
+    virtual void update_para(QVector<double> para) = 0;
+    virtual void update_activation(std::shared_ptr<ActivationFunction> activation_function) = 0;
+    virtual NeutronType get_type() const = 0;
+    virtual std::shared_ptr<ActivationFunction> get_activation() const = 0;
 };
 
 #endif // NEUTRON_H

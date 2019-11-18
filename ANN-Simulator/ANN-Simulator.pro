@@ -17,6 +17,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     activationfunction.cpp \
+    activationrelu.cpp \
+    activationsigmoid.cpp \
+    activationtanh.cpp \
     computefunction.cpp \
     hidelayer.cpp \
     hideneutron.cpp \
@@ -30,6 +33,9 @@ SOURCES += \
 
 HEADERS += \
     activationfunction.h \
+    activationrelu.h \
+    activationsigmoid.h \
+    activationtanh.h \
     computefunction.h \
     hidelayer.h \
     hideneutron.h \

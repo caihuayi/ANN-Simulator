@@ -11,6 +11,7 @@ HideNeutron::HideNeutron(const QPoint &p, int w, int h, int llc, double _z, doub
                        , y(_y)
 {
     last_layer_count = llc;
+    activation_function = nullptr;
 }
 
 void HideNeutron::random_para()
@@ -55,4 +56,24 @@ void HideNeutron::set_activation_function(std::shared_ptr<ActivationFunction> af
 double HideNeutron::activation_operation(double y)
 {
 
+}
+
+void HideNeutron::update_para(QVector<double> para)
+{
+    this->weight_vector = para;
+}
+
+void HideNeutron::update_activation(shared_ptr<ActivationFunction> af)
+{
+    activation_function = af;
+}
+
+Neutron::NeutronType HideNeutron::get_type() const
+{
+    return type;
+}
+
+shared_ptr<ActivationFunction> HideNeutron::get_activation() const
+{
+    return activation_function;
 }

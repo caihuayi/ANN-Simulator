@@ -6,6 +6,12 @@
 #include <QVector>
 #include "inputlayer.h"
 #include "hidelayer.h"
+#include "activationfunction.h"
+#include "hideneutron.h"
+#include "activationrelu.h"
+#include "activationsigmoid.h"
+#include "activationtanh.h"
+
 class Layer;
 class Neutron;
 class Manager
@@ -48,6 +54,8 @@ public:
     void update_fbpoint();
     void set_network(int layer_count, QVector<int> neutron_count);
     void random_para();
+    void update_para(QVector<double> para);
+    void update_layer_activation(std::shared_ptr<Layer> layer, std::shared_ptr<ActivationFunction> activation_function);
 };
 
 #endif // MANAGER_H

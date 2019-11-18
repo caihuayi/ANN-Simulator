@@ -8,7 +8,7 @@ Neutron::Neutron()
 
 Neutron::Neutron(const QPoint &p, int w, int h, int llc):
     position(p), weight(w), height(h), weight_vector(llc, 0)
-  , is_active(false), is_debug(false)
+  , is_active(false), is_debug(false), output(-1)
 {
     renew_point();
     compute_mid_point();
@@ -91,7 +91,10 @@ void Neutron::draw(std::shared_ptr<QPainter> painter,
     }
     painter->setBrush(*brush);
     painter->drawRect(position.x(), position.y(), weight, height);
-    painter->drawText(mid_position, QString::number(get_output()));
+    if (output != -1)
+    {
+        painter->drawText(mid_position, QString::number(get_output()));
+    }
 }
 
 inline bool Neutron::is_in(double x, double y)
