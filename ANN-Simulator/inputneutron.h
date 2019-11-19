@@ -2,6 +2,7 @@
 #define INPUTNEUTRON_H
 #include "neutron.h"
 #include "activationfunction.h"
+#include "randommaker.h"
 #include <QTime>
 #include <QVector>
 #include <memory>

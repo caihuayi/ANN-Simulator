@@ -60,6 +60,7 @@ public:
     bool debug_have_next();
     bool debug_next(std::shared_ptr<Layer> layer);
     void clear_output();
+    void set_last_debug(bool state);
 };
 
 #endif // LAYER_H

@@ -17,13 +17,11 @@ HideNeutron::HideNeutron(const QPoint &p, int w, int h, int llc, double _z, doub
 
 void HideNeutron::random_para()
 {
-    QTime time;
     weight_vector.clear();
+    RandomMaker rm;
     for (int i = 0; i < last_layer_count; i++)
     {
-        time = QTime::currentTime();
-        qsrand(time.msec() + time.second()*1000);
-        double n = static_cast<double>(qrand()%20) / 10;
+        double n = rm.make_random(2);
         weight_vector.append(n);
 
     }

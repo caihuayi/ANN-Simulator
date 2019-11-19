@@ -6,6 +6,7 @@
 #include <memory>
 #include "computefunction.h"
 #include "activationfunction.h"
+#include "randommaker.h"
 
 class HideNeutron : public Neutron
 {

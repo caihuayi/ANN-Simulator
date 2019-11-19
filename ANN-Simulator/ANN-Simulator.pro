@@ -29,7 +29,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     manager.cpp \
-    neutron.cpp
+    neutron.cpp \
+    randommaker.cpp
 
 HEADERS += \
     activationfunction.h \
@@ -44,7 +45,8 @@ HEADERS += \
     layer.h \
     mainwindow.h \
     manager.h \
-    neutron.h
+    neutron.h \
+    randommaker.h
 
 FORMS += \
     mainwindow.ui

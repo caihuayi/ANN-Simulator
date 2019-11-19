@@ -14,9 +14,8 @@ InputNeutron::InputNeutron(const QPoint &p, int w, int h, double _z) :
 
 void InputNeutron::random_para()
 {
-    QTime time;
-    qsrand(time.msec() + time.second()*1000);
-    double n = static_cast<double>(qrand()%20) / 10;
+    RandomMaker rm;
+    double n = rm.make_random(2);
     z = n;
     output = n;
 }
