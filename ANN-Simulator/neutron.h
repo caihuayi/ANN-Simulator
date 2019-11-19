@@ -26,10 +26,12 @@ protected:
     bool is_active;
     bool is_debug;
     std::shared_ptr<ActivationFunction> activation_function;
-private:
-    inline bool is_in(double x, double y);
     void compute_mid_point();
     void renew_point();
+private:
+    inline bool is_in(double x, double y);
+
+
 public:
     typedef enum{Input, Hide} NeutronType;
     Neutron();
@@ -60,8 +62,8 @@ public:
     virtual std::shared_ptr<ActivationFunction> get_activation() const = 0;
     virtual double compute(QVector<double> x) = 0;
 
-    virtual QTextStream& write_file(QTextStream &out);
-    virtual QTextStream& read_file(QTextStream &in);
+    virtual QTextStream& write_file(QTextStream &out) = 0;
+    virtual QTextStream& read_file(QTextStream &in) = 0;
 };
 
 #endif // NEUTRON_H

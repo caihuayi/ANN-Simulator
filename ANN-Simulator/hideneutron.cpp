@@ -75,15 +75,70 @@ double HideNeutron::compute(QVector<double> x)
 
 QTextStream& HideNeutron::write_file(QTextStream &out)
 {
-    //out << 2 << " " << last_layer_count << " ";
+    out << position.x() << " " << position.y() << " ";
+    out << weight_vector.size() << " ";
+    for (auto& iter : weight_vector)
+    {
+        out << iter << " ";
+    }
+    out << input.size() << " ";
+    for (auto& iter : input)
+    {
+        out << iter << " ";
+    }
+    //cout << output << " " << is_active << " " << is_debug << " " << activation_function->get_type() << " ";
+
+    out << output << " " << is_active << " " << is_debug << " " << activation_function->get_type() << " ";
+
     return out;
 }
 
 QTextStream& HideNeutron::read_file(QTextStream &in)
 {
-    //int llc;
-    //in >> llc;
-    //last_layer_count = llc;
+    int x, y;
+    in >> x >> y;
+    position.setX(x);
+    position.setY(y);
+    //cout << "get in Neutron::read_file" << endl;
+    int n;
+    in >> n;
+    for (int i = 0; i < n; i++)
+    {
+        in >> weight_vector[i];
+    }
+    in >> n;
+    for (int i = 0; i < n; i++)
+    {
+        double inp;
+        in >> inp;
+        input.append(inp);
+    }
+    int act, deb;
+    cout << "read_output" << output << endl;
+    in >> output;
+    in >> act;
+    in >> deb;
+    is_active = act;
+    is_debug = deb;
+    int act_typ;
+    in >> act_typ;
 
+    if (act_typ == ActivationFunction::ReLU)
+    {
+        shared_ptr<ActivationFunction> relu(new ActivationReLu());
+        activation_function = relu;
+    }
+    else if(act_typ == ActivationFunction::Sigmoid)
+    {
+        shared_ptr<ActivationFunction> sigmoid(new ActivationSigmoid());
+        activation_function = sigmoid;
+    }
+    else if(act_typ == ActivationFunction::Tanh)
+    {
+        shared_ptr<ActivationFunction> tanh(new ActivationTanh());
+        activation_function = tanh;
+    }
+    compute_mid_point();
+    renew_point();
     return in;
 }

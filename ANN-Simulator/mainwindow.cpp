@@ -63,6 +63,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     painter.reset(new QPainter(this));
     painter->setPen(*normal_pen);
     painter->setBrush(*active_brush);
+    //cout << "paint event" << endl;
     manager->draw(painter, active_brush, debug_brush, normal_brush, line_pen);
 }
 
@@ -227,5 +228,32 @@ void MainWindow::on_button_compute_all_clicked()
 void MainWindow::on_button_debug_clicked()
 {
     manager->debug_next();
+    this->update();
+}
+
+void MainWindow::on_button_save_clicked()
+{
+    QFile data("/Users/huayicai/Desktop/file.txt");
+    if (data.open(QFile::WriteOnly | QIODevice::Truncate))
+    {
+        QTextStream out(&data);
+        manager->write_file(out);
+        data.close();
+    }
+
+}
+
+
+
+void MainWindow::on_button_load_clicked()
+{
+    QFile data("/Users/huayicai/Desktop/file.txt");
+    if (data.open(QFile::ReadOnly))
+    {
+        QTextStream in(&data);
+        manager->read_file(in);
+
+        data.close();
+    }
     this->update();
 }

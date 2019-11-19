@@ -1,4 +1,5 @@
 #include "inputlayer.h"
+#include <iostream>
 using namespace std;
 
 InputLayer::InputLayer()
@@ -18,6 +19,7 @@ InputLayer::~InputLayer()
 
 void InputLayer::create(int n)
 {
+    cout << "inputlayer::create n" << n << endl;
     QPoint point = first_pos;
     neutron_list.clear();
     for (int i = 0; i < n; i++)
@@ -29,14 +31,4 @@ void InputLayer::create(int n)
     output_vector.fill(0, n);
 }
 
-QTextStream& InputLayer::write_file(QTextStream &out)
-{
 
-    return out;
-}
-
-QTextStream& InputLayer::read_file(QTextStream &in)
-{
-
-    return in;
-}

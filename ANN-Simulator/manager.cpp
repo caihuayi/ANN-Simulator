@@ -70,9 +70,11 @@ void Manager::create()
     QPoint point = first_pos;
     layer_list.clear();
     layer_list.append(shared_ptr<Layer>(new InputLayer(point.x(), point.y(), neutron_count[0], height_gap, neutron_weight, neutron_height)));
+    cout << "Manager create" << endl;
     point.setX(point.x()+weight_gap);
     for (int i = 1; i < layer_count; i++)
     {
+        cout << i << endl;
         shared_ptr<Layer> temp(new HideLayer(point.x(), point.y(), neutron_count[i], height_gap, neutron_weight, neutron_height, neutron_count[i-1]));
         shared_ptr<ActivationFunction> af(new ActivationReLu());
         temp->update_activation(af);
@@ -203,4 +205,43 @@ bool Manager::debug_next()
     debug_layer = *iter1;
 
     return true;
+}
+
+QTextStream& Manager::write_file(QTextStream &out)
+{
+    int layer_size = layer_list.size();
+    out << layer_size << " ";
+    for (int i = 0; i < layer_size; i++)
+    {
+        out << neutron_count[i] << " ";
+    }
+    for (auto& iter : layer_list)
+    {
+        iter->write_file(out);
+    }
+
+    return out;
+}
+
+QTextStream& Manager::read_file(QTextStream &in)
+{
+    int layer_size;
+    in >> layer_size;
+    layer_count = layer_size;
+    neutron_count.clear();
+    for (int i = 0; i < layer_size; i++)
+    {
+        int x;
+        in >> x;
+        neutron_count.append(x);
+    }
+    create();
+    for(auto& iter : layer_list)
+    {
+        iter->read_file(in);
+    }
+    cout << "Mangaer read_file create" << endl;
+
+
+    return in;
 }

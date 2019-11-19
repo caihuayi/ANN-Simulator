@@ -60,8 +60,8 @@ public:
     bool debug_next(std::shared_ptr<Layer> layer);
     void clear_output();
     void set_last_debug(bool state);
-    virtual QTextStream& write_file(QTextStream& out);
-    virtual QTextStream& read_file(QTextStream& in);
+    QTextStream& write_file(QTextStream& out);
+    QTextStream& read_file(QTextStream& in);
 };
 
 #endif // LAYER_H

@@ -1,5 +1,5 @@
 #include "neutron.h"
-
+#include <iostream>
 using namespace std;
 Neutron::Neutron()
 {
@@ -151,7 +151,9 @@ QTextStream& Neutron::write_file(QTextStream &out)
     {
         out << iter << " ";
     }
-    out << output << " " << is_active << " " << is_debug << " " ;//<< activation_function->get_type() << " ";
+    cout << output << " " << is_active << " " << is_debug << " " << activation_function->get_type() << " ";
+
+    out << output << " " << is_active << " " << is_debug << " " << activation_function->get_type() << " ";
 
     return out;
 }
@@ -162,6 +164,7 @@ QTextStream& Neutron::read_file(QTextStream &in)
     in >> x >> y;
     position.setX(x);
     position.setY(y);
+    //cout << "get in Neutron::read_file" << endl;
     int n;
     in >> n;
     for (int i = 0; i < n; i++)
@@ -176,6 +179,7 @@ QTextStream& Neutron::read_file(QTextStream &in)
         input.append(inp);
     }
     int act, deb;
+    cout << "read_output" << output << endl;
     in >> output;
     in >> act;
     in >> deb;
@@ -183,7 +187,7 @@ QTextStream& Neutron::read_file(QTextStream &in)
     is_debug = deb;
     int act_typ;
     in >> act_typ;
-    /*
+
     if (act_typ == ActivationFunction::ReLU)
     {
         shared_ptr<ActivationFunction> relu(new ActivationReLu());
@@ -199,7 +203,7 @@ QTextStream& Neutron::read_file(QTextStream &in)
         shared_ptr<ActivationFunction> tanh(new ActivationTanh());
         activation_function = tanh;
     }
-    */
+
 
     return in;
 }

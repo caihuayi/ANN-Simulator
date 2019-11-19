@@ -5,6 +5,7 @@
 #include <memory>
 #include <QVector>
 #include <QtAlgorithms>
+#include <QTextStream>
 #include "inputlayer.h"
 #include "hidelayer.h"
 #include "activationfunction.h"
@@ -23,6 +24,8 @@ private:
     std::shared_ptr<QPainter> normal_painter;
 
     QList<std::shared_ptr<Layer>> layer_list;
+
+
 
     QPoint first_pos;
     int neutron_height;
@@ -62,6 +65,8 @@ public:
     void compute_all();
     void set_input();
     bool debug_next();
+    QTextStream& read_file(QTextStream &in);
+    QTextStream& write_file(QTextStream &out);
 };
 
 #endif // MANAGER_H

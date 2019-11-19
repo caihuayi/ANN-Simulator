@@ -234,11 +234,36 @@ void Layer::set_last_debug(bool state)
 
 QTextStream& Layer::write_file(QTextStream &out)
 {
+    out << output_vector.size() << " ";
+    for (int i = 0; i < output_vector.size(); i++)
+    {
+        out << output_vector[i] << " ";
+    }
+    for (auto& iter : neutron_list)
+    {
+        iter->write_file(out);
+    }
+
     return out;
 }
 
 QTextStream& Layer::read_file(QTextStream &in)
 {
+    cout << "neutron_list size:" << neutron_list.size() << endl;
+    int size;
+    in >> size;
+    output_vector.clear();
+    for (int i = 0; i < size; i++)
+    {
+        double x;
+        in >> x;
+        output_vector.append(x);
+    }
+    for (auto& iter : neutron_list)
+    {
+        cout << "Layer::read_file:" << endl;
+        iter->read_file(in);
+    }
 
     return in;
 }

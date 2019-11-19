@@ -38,6 +38,10 @@ private slots:
 
     void on_button_debug_clicked();
 
+    void on_button_save_clicked();
+
+    void on_button_load_clicked();
+
 private:
     Ui::MainWindow *ui;
     //test all
