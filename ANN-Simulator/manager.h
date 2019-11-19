@@ -38,7 +38,7 @@ private:
                     std::shared_ptr<QBrush> active_brush,
                     std::shared_ptr<QBrush> debug_brush,
                     std::shared_ptr<QBrush> normal_brush) const;
-    void draw_line(std::shared_ptr<QPainter> painter, std::shared_ptr<QPen> line_pen) const;
+    void draw_line(std::shared_ptr<QPainter> painter) const;
 public:
     Manager();
     Manager(int x, int y, int neutron_height, int neutron_weight, int weight_gap, int height_gap);
@@ -62,8 +62,6 @@ public:
     void compute_all();
     void set_input();
     bool debug_next();
-    bool debug_have_next();
-    std::shared_ptr<Layer> get_debug_layer();
 };
 
 #endif // MANAGER_H

@@ -7,7 +7,7 @@ Layer::Layer()
 
 }
 
-Layer::Layer(int x, int y, int n, int g, int weight, int height, int llc) :
+Layer::Layer(int x, int y, int g, int weight, int height, int llc) :
     height_gap(g), neutron_weight(weight), neutron_height(height), last_layer_count(llc)
 {
     first_pos.setX(x);
@@ -192,11 +192,6 @@ shared_ptr<Neutron> Layer::get_debug_neutron()
 bool Layer::get_debugging() const
 {
     return is_debugging;
-}
-
-bool Layer::debug_have_next()
-{
-
 }
 
 bool Layer::debug_next(std::shared_ptr<Layer> layer)

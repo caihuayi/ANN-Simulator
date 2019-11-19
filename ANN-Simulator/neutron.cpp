@@ -137,3 +137,69 @@ void Neutron::compute_mid_point()
     mid_position.setX(position.x()+weight/4);
     mid_position.setY(position.y()+height/2);
 }
+
+QTextStream& Neutron::write_file(QTextStream &out)
+{
+    out << position.x() << " " << position.y() << " ";
+    out << weight_vector.size() << " ";
+    for (auto& iter : weight_vector)
+    {
+        out << iter << " ";
+    }
+    out << input.size() << " ";
+    for (auto& iter : input)
+    {
+        out << iter << " ";
+    }
+    out << output << " " << is_active << " " << is_debug << " " ;//<< activation_function->get_type() << " ";
+
+    return out;
+}
+
+QTextStream& Neutron::read_file(QTextStream &in)
+{
+    int x, y;
+    in >> x >> y;
+    position.setX(x);
+    position.setY(y);
+    int n;
+    in >> n;
+    for (int i = 0; i < n; i++)
+    {
+        in >> weight_vector[i];
+    }
+    in >> n;
+    for (int i = 0; i < n; i++)
+    {
+        double inp;
+        in >> inp;
+        input.append(inp);
+    }
+    int act, deb;
+    in >> output;
+    in >> act;
+    in >> deb;
+    is_active = act;
+    is_debug = deb;
+    int act_typ;
+    in >> act_typ;
+    /*
+    if (act_typ == ActivationFunction::ReLU)
+    {
+        shared_ptr<ActivationFunction> relu(new ActivationReLu());
+        activation_function = relu;
+    }
+    else if(act_typ == ActivationFunction::Sigmoid)
+    {
+        shared_ptr<ActivationFunction> sigmoid(new ActivationSigmoid());
+        activation_function = sigmoid;
+    }
+    else if(act_typ == ActivationFunction::Tanh)
+    {
+        shared_ptr<ActivationFunction> tanh(new ActivationTanh());
+        activation_function = tanh;
+    }
+    */
+
+    return in;
+}

@@ -1,6 +1,5 @@
 #ifndef ACTIVATIONRELU_H
 #define ACTIVATIONRELU_H
-
 #include "activationfunction.h"
 
 class ActivationReLu : public ActivationFunction

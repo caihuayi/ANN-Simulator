@@ -6,10 +6,8 @@ HideNeutron::HideNeutron()
 
 }
 
-HideNeutron::HideNeutron(const QPoint &p, int w, int h, int llc, double _z, double _y) :
+HideNeutron::HideNeutron(const QPoint &p, int w, int h, int llc) :
                          Neutron(p, w, h, llc)
-                       , z(_z)
-                       , y(_y)
 {
     last_layer_count = llc;
     activation_function = nullptr;
@@ -42,19 +40,9 @@ void HideNeutron::set_compute_function(std::shared_ptr<ComputeFunction> cf)
     compute_function = cf;
 }
 
-double HideNeutron::compute_operation(double x)
-{
-
-}
-
 void HideNeutron::set_activation_function(std::shared_ptr<ActivationFunction> af)
 {
     activation_function = af;
-}
-
-double HideNeutron::activation_operation(double y)
-{
-
 }
 
 void HideNeutron::update_para(QVector<double> para)
@@ -88,4 +76,19 @@ double HideNeutron::compute(QVector<double> x)
     output = activation_function->compute(result);
     cout << output << endl;
     return output;
+}
+
+QTextStream& HideNeutron::write_file(QTextStream &out)
+{
+    //out << 2 << " " << last_layer_count << " ";
+    return out;
+}
+
+QTextStream& HideNeutron::read_file(QTextStream &in)
+{
+    //int llc;
+    //in >> llc;
+    //last_layer_count = llc;
+
+    return in;
 }

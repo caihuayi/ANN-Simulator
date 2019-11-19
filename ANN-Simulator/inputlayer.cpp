@@ -8,7 +8,7 @@ InputLayer::InputLayer()
 
 InputLayer::InputLayer(int x, int y, int nc
                        , int hg, int nw, int nh) :
-    Layer(x, y, nc, hg, nw, nh, 0)
+    Layer(x, y, hg, nw, nh, 0)
 {
     create(nc);
 }
@@ -28,3 +28,4 @@ void InputLayer::create(int n)
     update_fbpoint();
     output_vector.fill(0, n);
 }
+

@@ -24,7 +24,7 @@ int Manager::size() const
     return layer_list.size();
 }
 
-void Manager::draw_line(std::shared_ptr<QPainter> painter, std::shared_ptr<QPen> line_pen) const
+void Manager::draw_line(std::shared_ptr<QPainter> painter) const
 {
     QList<std::shared_ptr<Layer>>::const_iterator iter = layer_list.begin();
     iter++;
@@ -62,7 +62,7 @@ void Manager::draw(std::shared_ptr<QPainter> painter,
                    std::shared_ptr<QPen> line_pen) const
 {
     draw_layer(painter, active_brush, debug_brush, normal_brush);
-    draw_line(painter, line_pen);
+    draw_line(painter);
 }
 
 void Manager::create()
@@ -170,11 +170,6 @@ void Manager::set_input()
     l->renew_output();
 }
 
-bool Manager::debug_have_next()
-{
-
-}
-
 bool Manager::debug_next()
 {
     QList<shared_ptr<Layer>>::const_iterator iter1;
@@ -209,6 +204,3 @@ bool Manager::debug_next()
 
     return true;
 }
-
-shared_ptr<Layer> Manager::get_debug_layer()
-{}

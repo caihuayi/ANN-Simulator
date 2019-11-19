@@ -2,7 +2,13 @@
 #define NEUTRON_H
 #include <QPainter>
 #include <memory>
-#include <activationfunction.h>
+#include <QTextStream>
+
+#include "activationrelu.h"
+#include "activationsigmoid.h"
+#include "activationtanh.h"
+
+
 class ActivationFunction;
 class Neutron
 {
@@ -53,6 +59,9 @@ public:
     virtual NeutronType get_type() const = 0;
     virtual std::shared_ptr<ActivationFunction> get_activation() const = 0;
     virtual double compute(QVector<double> x) = 0;
+
+    virtual QTextStream& write_file(QTextStream &out);
+    virtual QTextStream& read_file(QTextStream &in);
 };
 
 #endif // NEUTRON_H
