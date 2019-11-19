@@ -3,6 +3,7 @@
 
 #include <QtMath>
 
+#include "neutron.h"
 #include "activationfunction.h"
 
 class ActivationTanh : public ActivationFunction

@@ -29,3 +29,14 @@ void InputLayer::create(int n)
     output_vector.fill(0, n);
 }
 
+QTextStream& InputLayer::write_file(QTextStream &out)
+{
+
+    return out;
+}
+
+QTextStream& InputLayer::read_file(QTextStream &in)
+{
+
+    return in;
+}

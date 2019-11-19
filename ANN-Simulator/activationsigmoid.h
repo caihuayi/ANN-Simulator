@@ -2,6 +2,7 @@
 #define ACTIVATIONSIGMOID_H
 
 #include <QtMath>
+#include "neutron.h"
 
 #include "activationfunction.h"
 

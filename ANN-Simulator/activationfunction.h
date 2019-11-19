@@ -1,7 +1,6 @@
 #ifndef ACTIVATIONFUNCTION_H
 #define ACTIVATIONFUNCTION_H
 
-#include "neutron.h"
 class ActivationFunction
 {
 public:

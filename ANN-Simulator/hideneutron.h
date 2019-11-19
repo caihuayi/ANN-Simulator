@@ -19,7 +19,6 @@ public:
     void random_para() override;
     QVector<double> get_weight_vector() const override;
     void set_weight_vector(QVector<double>);
-    void set_compute_function(std::shared_ptr<ComputeFunction> compute_function);
     void set_activation_function(std::shared_ptr<ActivationFunction> activation_function);
     void update_para(QVector<double>) override;
     void update_activation(std::shared_ptr<ActivationFunction> activation_function) override;

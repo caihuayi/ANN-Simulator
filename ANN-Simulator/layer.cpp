@@ -231,3 +231,14 @@ void Layer::set_last_debug(bool state)
 {
     neutron_list.back()->set_debug(state);
 }
+
+QTextStream& Layer::write_file(QTextStream &out)
+{
+    return out;
+}
+
+QTextStream& Layer::read_file(QTextStream &in)
+{
+
+    return in;
+}

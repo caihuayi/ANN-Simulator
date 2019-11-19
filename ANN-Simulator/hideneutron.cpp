@@ -35,11 +35,6 @@ void HideNeutron::set_weight_vector(QVector<double> arr)
     weight_vector = arr;
 }
 
-void HideNeutron::set_compute_function(std::shared_ptr<ComputeFunction> cf)
-{
-    compute_function = cf;
-}
-
 void HideNeutron::set_activation_function(std::shared_ptr<ActivationFunction> af)
 {
     activation_function = af;

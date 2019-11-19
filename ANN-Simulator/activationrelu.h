@@ -1,6 +1,7 @@
 #ifndef ACTIVATIONRELU_H
 #define ACTIVATIONRELU_H
 #include "activationfunction.h"
+#include "neutron.h"
 
 class ActivationReLu : public ActivationFunction
 {
