@@ -203,6 +203,7 @@ QTextStream& Neutron::read_file(QTextStream &in)
         shared_ptr<ActivationFunction> tanh(new ActivationTanh());
         activation_function = tanh;
     }
+    renew_point();
 
 
     return in;

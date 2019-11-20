@@ -181,6 +181,7 @@ bool Manager::debug_next()
         iter1 = layer_list.begin();
         iter2 = iter1;
         debug_layer = *++iter1;
+        layer_list.back()->set_last_debug(false);
     }
     else
     {
@@ -240,6 +241,7 @@ QTextStream& Manager::read_file(QTextStream &in)
     {
         iter->read_file(in);
     }
+    update_fbpoint();
     cout << "Mangaer read_file create" << endl;
 
 
